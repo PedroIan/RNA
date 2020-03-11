@@ -2,6 +2,7 @@
 # Data de Início: 11/03/2020
 
 import numpy as np
+# Descobrir como fazer a pseudo-inversa de uma matriz
 
 def getNormalDestributionMatrix(lin, col):
     result = []
