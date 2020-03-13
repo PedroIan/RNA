@@ -2,7 +2,8 @@
 # Data de Início: 11/03/2020
 
 import numpy as np
-# Descobrir como fazer a pseudo-inversa de uma matriz
+# pseudo-inversa de uma matriz --> numpy.linalg.pinv()
+
 
 def getNormalDestributionMatrix(lin, col):
     result = []
