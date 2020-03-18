@@ -5,6 +5,11 @@ import numpy as np
 # pseudo-inversa de uma matriz --> numpy.linalg.pinv()
 
 
+a = np.random.randn(9, 6)
+B = np.linalg.pinv(a)
+print(a)
+print(B)
+
 def getNormalDestributionMatrix(lin, col):
     result = []
     for i in range(lin):
