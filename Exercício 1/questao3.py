@@ -30,11 +30,15 @@ for x in xAxesBase:
     yReal.append(funcaoG(x))
 
 sampled = random.sample(yReal, 10)
+
 xNovo = []
+yRealSampled = []
+
 
 for sample in sampled:
     yResult.append(ruidoGaussiano(sample))
     xNovo.append(xAxesBase[yReal.index(sample)])
+    yRealSampled.append(yReal[yReal.index(sample)])
 
 Hs = []
 Ws = []
@@ -51,6 +55,10 @@ print('----------------------------')
 # print(yResult)
 print(Ws)
 
+E = np.subtract(yRealSampled, yResult)
+# Erro = Y - Yhat
+print(E)
+Eq = np.sum(np.multiply(E, E), 1)
 
 # plt.plot(xAxesBase, yReal)
 # plt.scatter(xNovo, yResult)
