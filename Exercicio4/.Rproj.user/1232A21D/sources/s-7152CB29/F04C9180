@@ -12,14 +12,14 @@
     "properties": {
         "expression": "w",
         "caption": "w",
-        "totalObservations": 3,
-        "displayedObservations": 3,
-        "variables": 1,
-        "cacheKey": "6EE83142",
+        "totalObservations": "3",
+        "displayedObservations": "3",
+        "variables": "1",
+        "cacheKey": "BBA5F704",
         "object": "w",
         "environment": "",
-        "contentUrl": "grid_resource/gridviewer.html?env=&obj=w&cache_key=6EE83142&max_cols=50",
-        "preview": 0
+        "contentUrl": "grid_resource/gridviewer.html?env=&obj=w&cache_key=BBA5F704&max_cols=50",
+        "preview": "0"
     },
     "folds": "",
     "lastKnownWriteTime": 1598646238,
