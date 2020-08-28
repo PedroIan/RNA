@@ -15,6 +15,8 @@ plot(xc2[,1], xc2[,2], col = 'blue', xlim = c(0, 6), ylim = c(0, 6), xlab = '', 
 
 x1_reta <- seq(6/100, 6, 6/100)
 x2_reta <- -x1_reta + 6
+
+
 par(new = T)
 plot(x1_reta, x2_reta, type = 'l', col = 'orange', xlim = c(0, 6), ylim = c(0, 6), xlab ='', ylab = '')
 
