@@ -42,7 +42,6 @@ seqi<-seq(0,6,0.1)
 seqj<-seq(0,6,0.1)
 M <- matrix(0,nrow=length(seqi),ncol=length(seqj))
 
-Mteste <- matrix(0,nrow=length(concatenatedXteste),ncol=length(concatenatedXteste))
 
 ci<-0
 
@@ -56,9 +55,13 @@ for (i in seqi) {
   }
 }
 
-seqiTeste<-concatenatedXteste[,0]
-seqjTeste<-concatenatedXteste[,1]
+Mteste <- matrix(0,nrow=length(concatenatedXteste[,1]),ncol=length(concatenatedXteste[,2]))
+
+seqiTeste<-sort(concatenatedXteste[,1])
+seqjTeste<-sort(concatenatedXteste[,2])
 ci<-0
+
+erro <- 0
 
 for (i in seqiTeste) {
   ci<- ci+1
@@ -66,9 +69,24 @@ for (i in seqiTeste) {
   for (j in seqjTeste){
     cj<- cj+1
     x<- c(i,j)
-    M[ci,cj]<-yperceptron(x,w,1)
+    Mteste[ci,cj]<-yperceptron(x,w,1)
   }
+  
 }
+
+yhat <- matrix(0, nrow=length(concatenatedXteste[,1]))
+
+for (i in 1:length(seqiTeste)) {
+  x<- concatenatedXteste[i,]
+  yhat[i]<-yperceptron(x,w,1)
+  
+}
+
+erro <- sqrt(mean((yhat - concatenatedYteste)^2))
+
+erro
+
+yhat
 
 plot(xc1treinamento[,1],xc1treinamento[,2],col = 'red', xlim = c(0,6), ylim = c(0,6), xlab='x_1', ylab='x_2')
 par(new=T)
@@ -86,5 +104,5 @@ plot(xc2teste[,1], xc2teste[,2], col ='blue', xlim = c(0,6), ylim = c(0,6), xlab
 par(new=T)
 contour(seqiTeste, seqjTeste, Mteste, xlim = c(0,6), ylim = c(0,6), xlab='', ylab='')
 
-persp3D(seqiTeste, seqjTeste, M, counter=T, theta = 55, phi = 30, r = 40, d = 0.1, expand = 0.5, ltheta = 90, lphi = 180, shade = 0.4, ticktype = 'detailed', nticks=5)
+persp3D(seqiTeste, seqjTeste, Mteste, counter=T, theta = 55, phi = 30, r = 40, d = 0.1, expand = 0.5, ltheta = 90, lphi = 180, shade = 0.4, ticktype = 'detailed', nticks=5)
 
