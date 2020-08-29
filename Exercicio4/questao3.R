@@ -47,5 +47,5 @@ for (j in 1:101){
   allErros[j] <- erroPercentual * 100
 }
 
-plot(1:101,allErros,col = 'red', xlim = c(0,101), ylim = c(0,3), xlab='Erro %', ylab='Iteração')
+plot(1:101,allErros,col = 'red', xlim = c(0,101), ylim = c(0,3), xlab='Iteração', ylab='Erro %')
 var(allErros)
