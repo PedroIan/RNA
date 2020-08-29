@@ -25,7 +25,7 @@ for (j in 1:101){
   allTeste <- allButSpecies[sample(nc, nc*0.3, replace=FALSE),]
   allTreinamento <- allButSpecies[sample(nc, nc*0.7, replace=FALSE),]
   
-  retlist <- trainperceptron(allTreinamento[,1:4], allTreinamento[,5], 0.02, 0.02, 100, 1)
+  retlist <- trainperceptron(allTreinamento[,1:4], allTreinamento[,5], 0.02, 0.01, 100, 1)
   w <- retlist[[1]]
   yhat <- matrix(0, nrow=length(allTeste[,1]))
   
