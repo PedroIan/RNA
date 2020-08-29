@@ -1,0 +1,32 @@
+{
+    "id": "7D253E50",
+    "path": null,
+    "project_path": null,
+    "type": "r_dataframe",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1598664198530.0,
+    "source_on_save": false,
+    "relative_order": 5,
+    "properties": {
+        "expression": "yhat",
+        "caption": "yhat",
+        "totalObservations": 45,
+        "displayedObservations": 45,
+        "variables": 1,
+        "cacheKey": "A3FF6D1C",
+        "object": "yhat",
+        "environment": "",
+        "contentUrl": "grid_resource/gridviewer.html?env=&obj=yhat&cache_key=A3FF6D1C&max_cols=50",
+        "preview": 0
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1598661905,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1598664198530,
+    "read_only": false,
+    "read_only_alternatives": []
+}
