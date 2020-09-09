@@ -43,8 +43,9 @@ plotContourAndDots <- function(xin, classes, nNeuronios) {
   Z <- retlist[[3]]
   
   Yhat_train <- YELM(xin, Z, W, 1)
+  print((classes - Yhat_train)^2)
   
-  e_train <- sqrt(sum((classes - Yhat_train)^2))
+  e_train <- sum((classes - Yhat_train)^2)
   print(e_train)
   
   seqx1x2 <- seq(-2, 2, 0.1)
