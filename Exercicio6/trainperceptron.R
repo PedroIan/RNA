@@ -1,18 +1,11 @@
 trainperceptron <- function(xin,yd,eta,tol,maxepocas,par){
   
-  #yd: tem que ser garado para as xin (concatenado xall), metade 0 e metade 1
-  #xin:Entrada Nxn de dados de matriz
-  #eta: Peso de atualizacao do passo
-  #tol: tolerancia do erro
-  #maxepocas: numero maximo de epocas permitido
-  #par: par=1 indica que -1 precisa ser acrescido a xin
   
-  
-  N<-dim(xin)[1] #recebe as linhas
-  n<-dim(xin)[2] # recebe as colunas
+  N<-dim(xin)[1] 
+  n<-dim(xin)[2] 
   
   if (par==1){
-    wt<-as.matrix(runif(n+1)-0.5) #inicializa um vetor de n+1 elementos
+    wt<-as.matrix(runif(n+1)-0.5) 
     xin<-cbind(1,xin)
   }
   else{
@@ -21,32 +14,38 @@ trainperceptron <- function(xin,yd,eta,tol,maxepocas,par){
   
   nepocas<-0
   eepoca<-tol+1
-  #inicializa vetor erro evec, 
   evec<-matrix(nrow=1,ncol=maxepocas)
-  while ((nepocas < maxepocas) && (eepoca>tol))#eepocas erro da epoca e tol tolerancia
+  
+  while (((nepocas < maxepocas) && (eepoca>tol)))
   {
     ei2<-0
-    #sequencia aleatoria para treinamento
+    
     xseq<-sample(N)
     for (i in 1:N)
     {
-      #padrao para sequencia aleatoria
       irand<-xseq[i]
       yhati<-as.double((xin[irand, ] %*% wt) >= 0)
       ei<-yd[irand]-yhati
       dw<-eta * ei * xin[irand,] 
-      #atualizacao do peso w
       wt<-wt + dw
-      #erro acumulado
       ei2<-ei2+ei*ei
     }
-    #numero de epocas
+    
     nepocas<-nepocas+1
     evec[nepocas]<-ei2/N
-    #erro por epoca
+    
     eepoca<-evec[nepocas]
   }
   retlist<-list(wt,evec[1:nepocas])
   return(retlist)
   
+}
+
+yperceptron <- function(xvec,w,par){
+  if(par==1){
+    xvec<-c(1,xvec)}
+  
+  u<-xvec %*% w
+  y<-1.0*(u>=0)
+  return ((as.matrix(y))) 
 }

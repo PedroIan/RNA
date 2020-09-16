@@ -54,7 +54,9 @@ acuracia <- function(yResultado, yTeste) {
   
   sumAll <- 0
   for(i in 1:length(yTeste)) {
-    sumAll <- sumAll + abs(yResultado[i] - yTeste[i])
+    if((yResultado[i] - yTeste[i]) == 0) {
+      sumAll <- sumAll + 1
+    }
   }
   valAcuracia <- sumAll / length(yTeste)
   return(valAcuracia)
