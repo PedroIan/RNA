@@ -1,6 +1,7 @@
 readTable <- function(matrixAll, inCols, outCol, outDict) {
   matrixCopy <- na.exclude(matrixAll)
-  x <- as.matrix(matrixCopy[,inCols])
+  
+  x <- matrix(as.numeric(matrixCopy[,inCols]), nrow = nrow(matrixCopy), ncol = length(inCols))
   y <- matrixCopy[,outCol]
   
   for (i in nrow(matrixCopy):1){

@@ -1,6 +1,25 @@
 library('corpcor')
 
+escala <- function (xin){
+  
+  minColunas <- apply(xin, 2, min)
+  maxColunas <- apply(xin, 2, max)
+  
+  retMatrix <- matrix(0, nrow = nrow(xin), ncol = ncol(xin))
+  
+  for (i in 1:nrow(xin)){
+    
+    for(j in 1:ncol(xin)){
+      
+      retMatrix[i,j] = (xin[i,j] - minColunas[j]) / (maxColunas[j] - minColunas[j])
+    }
+  }
+  return (retMatrix)
+}
+
 treinaELM <- function(xin, yin, p, par){
+  xin <- escala(xin)
+  
   n <- dim(xin)[2]
   
   if(par == 1) {

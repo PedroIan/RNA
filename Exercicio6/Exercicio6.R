@@ -77,16 +77,19 @@ print(acuracia(yELM_bcw, y_bcw[-trainIndex]))
 
 ##############################
 
-# prever a presença de enfermidades cardíacas
 heart <- as.matrix(read.table('heart.dat', header = FALSE, sep = " ", skip = 0))
-# entradas: linhas 1:270 colunas 1:13
-# saída: coluna 14 - 1 = ausência; 2 = presença
-# OBS: No missing values.
-x_heart <- heart[,1:13]
-y_heart <- heart[,14]
 
-retlist <- treinaELM(x_heart, y_heart, 10, 1)
+retlist <- readTable(bcw, (1:13), 14, 4)
+
+x_heart <- retlist[[1]]
+y_heart <- retlist[[2]]
+
+trainIndex <- createDataPartition(y_bcw, p=0.8, list=FALSE)
+
+retlist <- treinaELM(x_heart[trainIndex,], y_heart[trainIndex], nNeuronios, 1)
 
 W <- retlist[[1]]
 H <- retlist[[2]]
 Z <- retlist[[3]]
+
+yELM_heart <- YELM(x_bcw[-trainIndex,], Z_bcw, W_bcw, 1)
