@@ -7,13 +7,12 @@ library(mlbench)
 library(caret)
 library(ks)
 
-cores <- rainbow(6)
+for(i in c(10,20,40)) {
+  rbfSinc(i)
+  
+}
 
-dnormals <- mlbench.2dnormals(200)
-xor <- mlbench.xor(100)
-circle <- mlbench.circle(100)
-spirals <- mlbench.spirals(100,sd = 0.05)
-
-allEntrada <- list(dnormals, xor, circle, spirals)
-
-rbfSinc(40)
+for(i in c(5, 10, 30, 50)) {
+  treinarTodasAsClasses(i)
+  
+}

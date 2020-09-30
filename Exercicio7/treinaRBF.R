@@ -156,6 +156,13 @@ treinarTodasAsClasses <- function(kCentros) {
       }
     }
     
+    erro <- 0
+    for (i in 1:length(yHatTreinamento)) {
+      erro <- erro+(yIn[i] - yHatTreinamento[i])^2
+    }
+    erro <- erro/length(yHatTreinamento)
+    print(erro)
+    
     plot(xIn[,1],xIn[,2], col = cores[yIn+2], xlim = c(-4,4), ylim = c(-4,4), xlab='x', ylab='y')
     par(new = TRUE)
     contour(seqx1x2, seqx1x2, MZ, nlevels = 1, xlim = c(-4, 4), ylim = c(-4, 4))
