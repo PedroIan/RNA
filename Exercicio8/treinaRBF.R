@@ -61,10 +61,10 @@ trainaRBF <- function(xIn, yIn, centros, kMediasObj) {
   
   covlist <- list()
   for (i in 1:length(p)){
-    ici <- which(kMediasObj$cluster %in% i)
+    ici <- sort(which(kMediasObj$cluster %in% i))
     xci <- xIn[ici,]
     if (is.null(nrow(xci))) {
-      covi <- matrix(0, ncol = 2, nrow = 2)
+      covi <- matrix(1, ncol = 2, nrow = 2)
     }
     else {
       covi <- cov(xci)
@@ -72,7 +72,7 @@ trainaRBF <- function(xIn, yIn, centros, kMediasObj) {
     covlist[[i]] <- covi
   }
   
-  m <- as.matrix(centros)
+  m <- as.matrix(kMediasObj$centers)
   
   H <- matrix(nrow=nrow(xIn), ncol=length(p))
   # Calcula matriz H
@@ -80,7 +80,7 @@ trainaRBF <- function(xIn, yIn, centros, kMediasObj) {
     for (i in 1:length(p)){
       mi <- m[i,]
       covi <- covlist[[i]]
-      if (class(try(solve(covi),silent=T)) == "matrix") {
+      if (class(try(solve(covi),silent=TRUE)) == "matrix") {
         H[j,i] <- fnormal2var(xIn[j,], mi, covi)
       }
       else {
@@ -94,7 +94,6 @@ trainaRBF <- function(xIn, yIn, centros, kMediasObj) {
   
   return(list(m, covlist, W, H))
 }
-
 
 getResult <- function(xIn, modeloRBF){
   
@@ -180,4 +179,31 @@ treinarTodasAsClasses <- function(kCentros) {
     
   }
   
+}
+
+trainaXvezes <- function(xIn, yIn, porcentage = 0.7, ocorrencias = 1) {
+  
+  retList <- list()
+  for (i in 1:ocorrencias) {
+    
+    trainIndex <- createDataPartition(yIn, p=porcentage, list=FALSE)
+    
+    kMediasReturn <- kmeans(xIn[trainIndex,], 20, 100)
+    centros <- kMediasReturn$centers
+    centros[centros %in% 0] <- 1
+    
+    kMediasReturn$centers <- centros
+    
+    kMediasReturn_random <- kmeans(xIn[trainIndex,], 50, 1)
+    centros_random <- kMediasReturn_random$centers
+    centros_random[centros_random %in% 0] <- 1
+    
+    kMediasReturn_random$centers <- centros_random
+    
+    retList <- c(retList, trainaRBF(xIn[trainIndex,], yIn[trainIndex], centros, kMediasReturn))
+    retList <- c(retList, trainaRBF(xIn[trainIndex,], yIn[trainIndex], centros_random, kMediasReturn_random))
+    
+  }
+  
+  return (retList)
 }

@@ -11,7 +11,7 @@ escala <- function (xin){
     
     for(j in 1:ncol(xin)){
       
-      retMatrix[i,j] = (xin[i,j] - minColunas[j]) / (maxColunas[j] - minColunas[j])
+      retMatrix[i,j] = 2 * ((xin[i,j] - minColunas[j]) / (maxColunas[j] - minColunas[j])) - 1
     }
   }
   return (retMatrix)
@@ -19,7 +19,7 @@ escala <- function (xin){
 
 treinaELM <- function(xin, yin, par){
   xin <- escala(xin)
-  p <- 100
+  p <- 300
   
   n <- dim(xin)[2]
   
@@ -37,8 +37,12 @@ treinaELM <- function(xin, yin, par){
 }
 
 
-YELM <- function(xin, Z, W, par) {
-  n <- dim(xin)[2]
+YELM <- function(xin, ELMObject, par) {
+  
+  W <- ELMObject[[1]]
+  Z <- ELMObject[[3]]
+  
+  n <- nrow(xin)
   
   if(par == 1) {
     xin <- cbind(1, xin)
@@ -52,6 +56,15 @@ YELM <- function(xin, Z, W, par) {
 }
 
 acuracia <- function(yResultado, yTeste) {
+  
+  for (i in 1:length(yResultado)) {
+    if (yResultado[i] > 0) {
+      yResultado[i] <- 1
+    }
+    else {
+      yResultado[i] <- -1
+    }
+  }
   
   sumAll <- 0
   for(i in 1:length(yTeste)) {
