@@ -85,38 +85,56 @@ elmEURUSD = nnfor::elm(ts(EURUSDtreinamento))
 elmEURGBP = nnfor::elm(ts(EURGBPtreinamento))
 elmUSDJPY = nnfor::elm(ts(USDJPYtreinamento))
 
+
 ###########################################
 # Previsões
 
 # RBF
 RBFpredictEURUSD = predict(rbfEURUSD, EURUSDteste[,1:100])
+RBFpredictEURUSD[RBFpredictEURUSD > mean(RBFpredictEURUSD)] = 1
+RBFpredictEURUSD[RBFpredictEURUSD < mean(RBFpredictEURUSD)] = -1
+
 RBFpredictEURGBP = predict(rbfEURGBP, EURGBPteste[,1:100])
+RBFpredictEURGBP[RBFpredictEURGBP > mean(RBFpredictEURGBP)] = 1
+RBFpredictEURGBP[RBFpredictEURGBP < mean(RBFpredictEURGBP)] = -1
+
 RBFpredictUSDJPY = predict(rbfUSDJPY, USDJPYteste[,1:100])
+RBFpredictUSDJPY[RBFpredictUSDJPY > mean(RBFpredictUSDJPY)] = 1
+RBFpredictUSDJPY[RBFpredictUSDJPY < mean(RBFpredictUSDJPY)] = -1
 
 # MLP
 MLPpredictEURUSD = predict(mlpEURUSD, EURUSDteste[,1:100])
+MLPpredictEURUSD[MLPpredictEURUSD > mean(MLPpredictEURUSD)] = 1
+MLPpredictEURUSD[MLPpredictEURUSD < mean(MLPpredictEURUSD)] = -1
+
 MLPpredictEURGBP = predict(mlpEURGBP, EURGBPteste[,1:100])
+MLPpredictEURGBP[MLPpredictEURGBP > mean(MLPpredictEURGBP)] = 1
+MLPpredictEURGBP[MLPpredictEURGBP < mean(MLPpredictEURGBP)] = -1
+
 MLPpredictUSDJPY = predict(mlpUSDJPY, USDJPYteste[,1:100])
+MLPpredictUSDJPY[MLPpredictUSDJPY > mean(MLPpredictUSDJPY)] = 1
+MLPpredictUSDJPY[MLPpredictUSDJPY < mean(MLPpredictUSDJPY)] = -1
 
 # ELM
 ELMpredictEURUSD = forecast(elmEURUSD, y = EURUSDteste[,1:100])
 ELMpredictEURGBP = forecast(elmEURGBP, y = EURGBPteste[,1:100])
 ELMpredictUSDJPY = forecast(elmUSDJPY, y = USDJPYteste[,1:100])
 
+
 ###########################################
 # Erro
 
 # RBF
-mseRBFEURUSD = (sum((RBFpredictEURUSD - EURUSDteste[,101])^2))/nrow(EURUSDteste)
-mseRBFEURGBP = (sum((RBFpredictEURGBP - EURGBPteste[,101])^2))/nrow(EURGBPteste)
-mseRBFUSDJPY = (sum((RBFpredictUSDJPY - USDJPYteste[,101])^2))/nrow(USDJPYteste)
+caret::confusionMatrix(factor(EURUSDteste[,101]), factor(RBFpredictEURUSD))
+caret::confusionMatrix(factor(EURGBPteste[,101]), factor(RBFpredictEURGBP))
+caret::confusionMatrix(factor(USDJPYteste[,101]), factor(RBFpredictUSDJPY))
 
 # MLP
-mseMLPEURUSD = (sum((MLPpredictEURUSD - EURUSDteste[,101])^2))/nrow(EURUSDteste)
-mseMLPEURGBP = (sum((MLPpredictEURGBP - EURGBPteste[,101])^2))/nrow(EURGBPteste)
-mseMLPUSDJPY = (sum((MLPpredictUSDJPY - USDJPYteste[,101])^2))/nrow(USDJPYteste)
+caret::confusionMatrix(factor(EURUSDteste[,101]), factor(MLPpredictEURUSD))
+caret::confusionMatrix(factor(EURGBPteste[,101]), factor(MLPpredictEURGBP))
+caret::confusionMatrix(factor(USDJPYteste[,101]), factor(MLPpredictUSDJPY))
 
 # ELM
-mseELMEURUSD = (sum((ELMpredictEURUSD - EURUSDteste[,101])^2))/nrow(EURUSDteste)
-mseELMEURGBP = (sum((ELMpredictEURGBP - EURGBPteste[,101])^2))/nrow(EURGBPteste)
-mseELMUSDJPY = (sum((ELMpredictUSDJPY - USDJPYteste[,101])^2))/nrow(USDJPYteste)
+caret::confusionMatrix(factor(EURUSDteste[,101]), factor(ELMpredictEURUSD))
+caret::confusionMatrix(factor(EURGBPteste[,101]), factor(ELMpredictEURGBP))
+caret::confusionMatrix(factor(USDJPYteste[,101]), factor(ELMpredictUSDJPY))
